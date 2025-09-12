@@ -1,6 +1,6 @@
 import { processedData } from './data';
 
-function isReportSafe(report: number[]) {
+export function isReportSafe(report: number[]) {
   // Determine whether the level is increasing or decreasing
   const trend = Math.sign(report[0] - report[1]);
 
