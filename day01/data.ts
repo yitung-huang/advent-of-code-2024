@@ -1005,3 +1005,16 @@ export const data = `76569   66648
 23533   40965
 82416   74888
 24373   20896`;
+
+export const processedData = data
+  .split('\n')
+  .reduce<{ listA: number[]; listB: number[] }>(
+    (lists, dataLine) => {
+      const [listAItem, listBItem] = dataLine.split('   ');
+      return {
+        listA: [...lists.listA, parseInt(listAItem)],
+        listB: [...lists.listB, parseInt(listBItem)],
+      };
+    },
+    { listA: [], listB: [] }
+  );
