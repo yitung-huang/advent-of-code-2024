@@ -156,7 +156,7 @@ XMMXSMSMMSMAMXXXXXMAMSAMXMSSMMSMSASMSXXAXAXXMAXXMSAMXXXXMASAMSMSAMXSXMAMXSXMMMSM
 function processData(data: string) {
   const lines = data.split('\n');
 
-  return lines.reduce<Record<string, Record<string, number[]>>>(
+  const lettersMap = lines.reduce<Record<string, Record<string, number[]>>>(
     (lettersMap, line, rowIndex) => {
       for (let colIndex = 0; colIndex < line.length; colIndex++) {
         const char = line.charAt(colIndex);
@@ -174,6 +174,8 @@ function processData(data: string) {
     },
     {}
   );
+
+  return { lettersMap, numRows: lines.length, numCols: lines[0].length };
 }
 
 export const processedExampleData = processData(exampleData);
