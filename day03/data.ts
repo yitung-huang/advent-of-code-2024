@@ -17,3 +17,14 @@ function processData(data: string): string[] {
 
 export const processedExampleData = processData(exampleData);
 export const processedData = processData(data);
+
+const exampleDataPart2 = `xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))`;
+
+const mulFunctionDoDontRegex = /mul\(\d+\,\d+\)|do\(\)|don\'t\(\)/gm;
+
+function processDataPart2(data: string): RegExpExecArray[] {
+  return [...data.matchAll(mulFunctionDoDontRegex)];
+}
+
+export const processedExampleDataPart2 = processDataPart2(exampleDataPart2);
+export const processedDataPart2 = processDataPart2(data);
