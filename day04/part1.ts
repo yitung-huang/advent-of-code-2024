@@ -6,6 +6,10 @@ console.log(lettersMap);
 
 const SEARCH_WORD = 'XMAS';
 
+function isOutOfBounds(row: number, column: number) {
+  return row < 0 || row >= numRows || column < 0 || column >= numCols;
+}
+
 function searchUpwards(
   /**
    * Index of current character of interest, in the search word.
@@ -21,7 +25,7 @@ function searchUpwards(
   colIndex: number
 ) {
   // If the place to search is out of bounds, stop searching.
-  if (rowIndex < 0) return false;
+  if (isOutOfBounds(rowIndex, colIndex)) return false;
 
   const searchChar = SEARCH_WORD[searchCharIndex];
   const searchCharOccurrences = lettersMap[searchChar];
@@ -59,7 +63,7 @@ function searchDownwards(
   colIndex: number
 ) {
   // If the place to search is out of bounds, stop searching.
-  if (rowIndex > numRows) return false;
+  if (isOutOfBounds(rowIndex, colIndex)) return false;
 
   const searchChar = SEARCH_WORD[searchCharIndex];
   const searchCharOccurrences = lettersMap[searchChar];
