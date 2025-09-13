@@ -175,7 +175,7 @@ function processData(data: string) {
     {}
   );
 
-  return { lettersMap, numRows: lines.length, numCols: lines[0].length };
+  return { lettersMap, lines, numRows: lines.length, numCols: lines[0].length };
 }
 
 export const processedExampleData = processData(exampleData);

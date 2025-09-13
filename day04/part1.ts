@@ -1,6 +1,6 @@
 import { processedExampleData as processedData } from './data';
 
-const { lettersMap, numRows, numCols } = processedData;
+const { lettersMap, lines, numRows, numCols } = processedData;
 
 console.log(lettersMap);
 
@@ -42,6 +42,19 @@ function searchInDirection(
   // Didn't find the character, terminate search
   return false;
 }
+
+const rightwardSearchRegExp = /XMAS/g;
+const leftwardSearchRegExp = /SAMX/g;
+
+const horizontalSearchCounts = lines.reduce((sum, line) => {
+  const rightwardMatchesWithinLine = [...line.matchAll(rightwardSearchRegExp)];
+  const leftwardMatchesWithinLine = [...line.matchAll(leftwardSearchRegExp)];
+  return (
+    sum + rightwardMatchesWithinLine.length + leftwardMatchesWithinLine.length
+  );
+}, 0);
+
+console.log('Found ', horizontalSearchCounts, ' horizontal search counts');
 
 Object.entries(lettersMap[SEARCH_WORD[0]]).forEach(([row, occurrences]) => {
   console.log('Row ', row, ' has occurrences: ', occurrences);
