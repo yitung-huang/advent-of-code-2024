@@ -62,6 +62,36 @@ Object.entries(lettersMap[SEARCH_WORD[0]]).forEach(([row, occurrences]) => {
       );
     }
 
+    const upwardsLeftDiagonalSearch = searchInDirection(
+      1,
+      [parseInt(row) - 1, column - 1],
+      [-1, -1]
+    );
+    if (upwardsLeftDiagonalSearch) {
+      console.log(
+        'Found XMAS by searching upwards left diagonal, starting from: (',
+        row,
+        ', ',
+        column,
+        ')'
+      );
+    }
+
+    const upwardsRightDiagonalSearch = searchInDirection(
+      1,
+      [parseInt(row) - 1, column + 1],
+      [1, -1]
+    );
+    if (upwardsRightDiagonalSearch) {
+      console.log(
+        'Found XMAS by searching upwards right diagonal, starting from: (',
+        row,
+        ', ',
+        column,
+        ')'
+      );
+    }
+
     const downwardsSearch = searchInDirection(
       1,
       [parseInt(row) + 1, column],
@@ -70,6 +100,36 @@ Object.entries(lettersMap[SEARCH_WORD[0]]).forEach(([row, occurrences]) => {
     if (downwardsSearch) {
       console.log(
         'Found XMAS by searching downwards, starting from: (',
+        row,
+        ', ',
+        column,
+        ')'
+      );
+    }
+
+    const downwardsLeftDiagonalSearch = searchInDirection(
+      1,
+      [parseInt(row) + 1, column - 1],
+      [-1, 1]
+    );
+    if (downwardsLeftDiagonalSearch) {
+      console.log(
+        'Found XMAS by searching downwards left diagonal, starting from: (',
+        row,
+        ', ',
+        column,
+        ')'
+      );
+    }
+
+    const downwardsRightDiagonalSearch = searchInDirection(
+      1,
+      [parseInt(row) + 1, column + 1],
+      [1, 1]
+    );
+    if (downwardsRightDiagonalSearch) {
+      console.log(
+        'Found XMAS by searching downwards right diagonal, starting from: (',
         row,
         ', ',
         column,
