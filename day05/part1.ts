@@ -1,4 +1,4 @@
-import { processedExampleData as processedData } from './data';
+import { processedData } from './data';
 
 const { rules, updates } = processedData;
 
@@ -37,11 +37,16 @@ function isUpdateOrderCorrect(updates: string[]) {
   }, true);
 }
 
-updates.forEach((update, index) => {
-  console.log(
-    'The update ',
-    index,
-    ' is correct: ',
-    isUpdateOrderCorrect(update)
-  );
-});
+const correctUpdateOrders = updates.filter((update) =>
+  isUpdateOrderCorrect(update)
+);
+
+const correctOrdersMiddlePageNumberSum = correctUpdateOrders.reduce(
+  (sum, update) => {
+    const updateMiddleIndex = Math.floor(update.length / 2);
+    return sum + parseInt(update[updateMiddleIndex]);
+  },
+  0
+);
+
+console.log(correctOrdersMiddlePageNumberSum);
