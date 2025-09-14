@@ -4,7 +4,7 @@ const { lettersMap, lines, numRows, numCols } = processedData;
 
 const SEARCH_WORD = 'XMAS';
 
-function isOutOfBounds(row: number, column: number) {
+export function isOutOfBounds(row: number, column: number) {
   return row < 0 || row >= numRows || column < 0 || column >= numCols;
 }
 
