@@ -1,8 +1,6 @@
-import { processedExampleData as processedData } from './data';
+import { processedData } from './data';
 
 const { lettersMap, lines, numRows, numCols } = processedData;
-
-console.log(lettersMap);
 
 const SEARCH_WORD = 'XMAS';
 
@@ -54,100 +52,67 @@ const horizontalSearchCounts = lines.reduce((sum, line) => {
   );
 }, 0);
 
-console.log('Found ', horizontalSearchCounts, ' horizontal search counts');
-
-Object.entries(lettersMap[SEARCH_WORD[0]]).forEach(([row, occurrences]) => {
-  console.log('Row ', row, ' has occurrences: ', occurrences);
-
-  occurrences.forEach((column) => {
-    const upwardsSearch = searchInDirection(
-      1,
-      [parseInt(row) - 1, column],
-      [0, -1]
-    );
-    if (upwardsSearch) {
-      console.log(
-        'Found XMAS by searching upwards, starting from: (',
-        row,
-        ', ',
-        column,
-        ')'
+const totalSearchCounts = Object.entries(lettersMap[SEARCH_WORD[0]]).reduce(
+  (sum, [row, occurrences]) => {
+    let countsFromThisOccurence = 0;
+    occurrences.forEach((column) => {
+      const upwardsSearch = searchInDirection(
+        1,
+        [parseInt(row) - 1, column],
+        [0, -1]
       );
-    }
+      if (upwardsSearch) {
+        countsFromThisOccurence++;
+      }
 
-    const upwardsLeftDiagonalSearch = searchInDirection(
-      1,
-      [parseInt(row) - 1, column - 1],
-      [-1, -1]
-    );
-    if (upwardsLeftDiagonalSearch) {
-      console.log(
-        'Found XMAS by searching upwards left diagonal, starting from: (',
-        row,
-        ', ',
-        column,
-        ')'
+      const upwardsLeftDiagonalSearch = searchInDirection(
+        1,
+        [parseInt(row) - 1, column - 1],
+        [-1, -1]
       );
-    }
+      if (upwardsLeftDiagonalSearch) {
+        countsFromThisOccurence++;
+      }
 
-    const upwardsRightDiagonalSearch = searchInDirection(
-      1,
-      [parseInt(row) - 1, column + 1],
-      [1, -1]
-    );
-    if (upwardsRightDiagonalSearch) {
-      console.log(
-        'Found XMAS by searching upwards right diagonal, starting from: (',
-        row,
-        ', ',
-        column,
-        ')'
+      const upwardsRightDiagonalSearch = searchInDirection(
+        1,
+        [parseInt(row) - 1, column + 1],
+        [1, -1]
       );
-    }
+      if (upwardsRightDiagonalSearch) {
+        countsFromThisOccurence++;
+      }
 
-    const downwardsSearch = searchInDirection(
-      1,
-      [parseInt(row) + 1, column],
-      [0, 1]
-    );
-    if (downwardsSearch) {
-      console.log(
-        'Found XMAS by searching downwards, starting from: (',
-        row,
-        ', ',
-        column,
-        ')'
+      const downwardsSearch = searchInDirection(
+        1,
+        [parseInt(row) + 1, column],
+        [0, 1]
       );
-    }
+      if (downwardsSearch) {
+        countsFromThisOccurence++;
+      }
 
-    const downwardsLeftDiagonalSearch = searchInDirection(
-      1,
-      [parseInt(row) + 1, column - 1],
-      [-1, 1]
-    );
-    if (downwardsLeftDiagonalSearch) {
-      console.log(
-        'Found XMAS by searching downwards left diagonal, starting from: (',
-        row,
-        ', ',
-        column,
-        ')'
+      const downwardsLeftDiagonalSearch = searchInDirection(
+        1,
+        [parseInt(row) + 1, column - 1],
+        [-1, 1]
       );
-    }
+      if (downwardsLeftDiagonalSearch) {
+        countsFromThisOccurence++;
+      }
 
-    const downwardsRightDiagonalSearch = searchInDirection(
-      1,
-      [parseInt(row) + 1, column + 1],
-      [1, 1]
-    );
-    if (downwardsRightDiagonalSearch) {
-      console.log(
-        'Found XMAS by searching downwards right diagonal, starting from: (',
-        row,
-        ', ',
-        column,
-        ')'
+      const downwardsRightDiagonalSearch = searchInDirection(
+        1,
+        [parseInt(row) + 1, column + 1],
+        [1, 1]
       );
-    }
-  });
-});
+      if (downwardsRightDiagonalSearch) {
+        countsFromThisOccurence++;
+      }
+    });
+    return sum + countsFromThisOccurence;
+  },
+  horizontalSearchCounts
+);
+
+console.log('Total search count is: ', totalSearchCounts);
